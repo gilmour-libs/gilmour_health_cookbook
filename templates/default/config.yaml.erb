@@ -1,0 +1,15 @@
+---
+essential_topics:
+
+health_check_interval: 60
+topic_check_interval: 60
+
+health_reporting:
+  title: "Health Monitor"
+  enabled: false
+  pager_duty_token: <%= @health_reporting_token %>
+
+error_reporting:
+  title: "Backend Traceback"
+  enabled: false
+  pager_duty_token: <%= @error_reporting_token %>

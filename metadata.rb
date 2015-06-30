@@ -1,0 +1,7 @@
+name             'gilmour_health'
+maintainer       'YOUR_NAME'
+maintainer_email 'YOUR_EMAIL'
+license          'All rights reserved'
+description      'Installs/Configures gilmour_health'
+long_description 'Installs/Configures gilmour_health'
+version          '0.1.0'
