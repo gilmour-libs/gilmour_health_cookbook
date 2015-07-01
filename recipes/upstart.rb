@@ -3,12 +3,16 @@ user = node[:vars][:user]
 source_dir = File.join(node[:gilmour_health][:repo_path], "current")
 command = "foreman export upstart /etc/init -a #{service_name} -u #{user} -l /tmp"
 
+log_file = File.join(source_dir, "log", "gilmour_health.log")
+
+node.set[:logger][:watch_files]["gilmour_health"] = log_file
+
 template File.join(source_dir, "Procfile") do
   action :create
   backup 5
   owner user
   source "procfile.erb"
-  variables :log_file => File.join(source_dir, "log", "gilmour_health.log"),
+  variables :log_file => log_file,
     :config_file => File.join(source_dir, "config", "config.yaml")
   notifies :run, 'execute[foreman_health_script]', :immediately
 end
