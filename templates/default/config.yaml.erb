@@ -4,12 +4,16 @@ essential_topics:
 health_check_interval: 60
 topic_check_interval: 60
 
+redis:
+  host: '<%= @redis_host %>'
+  port: <%= @redis_port %>
+
 health_reporting:
   title: "Health Monitor"
-  enabled: false
+  enabled: true
   pager_duty_token: <%= @health_reporting_token %>
 
 error_reporting:
   title: "Backend Traceback"
-  enabled: false
+  enabled: true
   pager_duty_token: <%= @error_reporting_token %>

@@ -45,7 +45,9 @@ template File.join(node[:gilmour_health][:repo_path], "current", "config", "conf
   backup 5
   owner user
   source "config.yaml.erb"
-  variables :error_reporting_token => pagerduty_config["error_reporting_token"],
+  variables :redis_host => node[:gilmour_health][:redis_host],
+    :redis_port => node[:gilmour_health][:redis_port],
+    :error_reporting_token => pagerduty_config["error_reporting_token"],
     :health_reporting_token => pagerduty_config["health_reporting_token"]
 end
 
