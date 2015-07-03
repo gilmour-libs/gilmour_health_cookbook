@@ -27,8 +27,8 @@ service service_name do
   supports :status => true, :restart => true
   action [ :enable, :restart ]
   subscribes :restart, "execute[foreman_script]", :immediately
-  restart_command "service datascale restart"
-  start_command "service datascale start"
-  status_command "service datascale status"
-  stop_command "service datascale stop"
+  restart_command "service #{service_name} restart"
+  start_command "service #{service_name} start"
+  status_command "service #{service_name} status"
+  stop_command "service #{service_name} stop"
 end
