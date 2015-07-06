@@ -1,5 +1,8 @@
 ---
 essential_topics:
+  <% @essential_topics.each do |topic| %>
+  - <%= topic %>
+  <% end %>
 
 health_check_interval: 60
 topic_check_interval: 60
