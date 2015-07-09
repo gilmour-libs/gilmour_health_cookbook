@@ -7,6 +7,10 @@ essential_topics:
 health_check_interval: 60
 topic_check_interval: 60
 
+listen_to:
+  host: "0.0.0.0"
+  port: <%= @listen_port %>
+
 redis:
   host: '<%= @redis_host %>'
   port: <%= @redis_port %>

@@ -41,12 +41,15 @@ deploy_revision node[:gilmour_health][:repo_path] do
 end
 
 params = { essential_topics: node[:gilmour_health][:essential_topics],
+           listen_port: node[:gilmour_health][:listen_port],
            redis_host: node[:gilmour_health][:redis_host],
            redis_port: node[:gilmour_health][:redis_port],
            error_reporting_token: pagerduty_config['error_reporting_token'],
            health_reporting_token: pagerduty_config['health_reporting_token'] }
 
-template File.join(node[:gilmour_health][:repo_path], 'current', 'config', 'config.yaml') do
+config_path = File.join(node[:gilmour_health][:repo_path], 'current', 'config', 'config.yaml')
+
+template config_path  do
   action :create
   backup 5
   owner user

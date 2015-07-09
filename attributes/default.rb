@@ -11,5 +11,6 @@ default[:gilmour_health][:repo_branch] = 'master'
 default[:gilmour_health][:repo_revision] = 'HEAD'
 default[:gilmour_health][:redis_host] = '127.0.0.1'
 default[:gilmour_health][:redis_port] = 6379
+default[:gilmour_health][:listen_port] = 8080
 
 default[:vars][:user] = 'ubuntu'
