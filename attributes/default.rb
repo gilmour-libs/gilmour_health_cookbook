@@ -7,6 +7,8 @@ default[:gilmour_health][:repo_path] = \
 default[:gilmour_health][:repo_url] = \
   'http://github.com/gilmour-libs/health-bulletin.git'
 
+default[:gilmour_health][:ignore_host_binary] = 'https://dl.bintray.com/gilmour/gilmour-tools/latest/ignore_host'
+
 default[:gilmour_health][:repo_branch] = 'master'
 default[:gilmour_health][:repo_revision] = 'HEAD'
 default[:gilmour_health][:redis_host] = '127.0.0.1'
