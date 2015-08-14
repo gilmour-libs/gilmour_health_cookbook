@@ -9,6 +9,9 @@ default.gilmour_health.repo_url = \
 
 default.gilmour_health.ignore_host_binary = 'https://s3-us-west-2.amazonaws.com/ds-artifact/master/latest/ignore_host'
 
+default.gilmour_health.health_reporting = true
+default.gilmour_health.error_reporting = true
+
 default.gilmour_health.repo_branch = 'master'
 default.gilmour_health.repo_revision = 'HEAD'
 default.gilmour_health.redis_host = '127.0.0.1'

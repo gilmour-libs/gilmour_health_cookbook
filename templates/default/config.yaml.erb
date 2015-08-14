@@ -17,10 +17,10 @@ redis:
 
 health_reporting:
   title: "Health Monitor"
-  enabled: true
+  enabled: <%= @node.gilmour_health.health_reporting %>
   pager_duty_token: <%= @health_reporting_token %>
 
 error_reporting:
   title: "Backend Traceback"
-  enabled: true
+  enabled: <%= @node.gilmour_health.error_reporting %>
   pager_duty_token: <%= @error_reporting_token %>
