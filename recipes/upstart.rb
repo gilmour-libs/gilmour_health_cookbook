@@ -5,7 +5,7 @@ command = "foreman export upstart /etc/init -a #{service_name} -u #{user} -l /tm
 
 log_file = File.join(source_dir, "log", "gilmour_health.log")
 
-node.set[:logger][:watch_files]["gilmour_health"] = log_file
+node.set.ds_logger.watch_files.gilmour_health = log_file
 
 template File.join(source_dir, "Procfile") do
   action :create
