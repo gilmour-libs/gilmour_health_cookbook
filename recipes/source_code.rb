@@ -12,8 +12,11 @@ pagerduty_config = pager_bag[node.chef_environment] || pager_bag['_default']
 
 user = node[:vars][:user]
 
-ssh_known_hosts_entry 'bitbucket.org'
-ssh_known_hosts_entry 'github.com'
+%w( github.com bitbucket.org ).each do |host|
+  ssh_known_hosts host do
+    hashed true
+  end
+end
 
 package 'git'
 
