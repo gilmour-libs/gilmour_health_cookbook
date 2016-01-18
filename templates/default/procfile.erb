@@ -1,1 +1,1 @@
-manager: bash -lx ruby server.rb --vv -c <%= @config_file %> >> <%= @log_file %> 2>&1
+manager: env BUNDLE_PATH=<%= @bundle_path %> bash -lx bundle exec ruby server.rb --vv -c <%= @config_file %>

@@ -36,7 +36,7 @@ deploy_revision node[:gilmour_health][:repo_path] do
   keep_releases 10
   action :deploy # or :rollback
   restart_command 'touch tmp/restart.txt'
-  create_dirs_before_symlink  %w{tmp public config deploy log}
+  create_dirs_before_symlink %w(tmp public config deploy log)
   symlink_before_migrate({})
   # scm_provider Chef::Provider::Git
   # install dependencies
@@ -50,9 +50,10 @@ params = { essential_topics: node[:gilmour_health][:essential_topics],
            error_reporting_token: pagerduty_config['error_reporting_token'],
            health_reporting_token: pagerduty_config['health_reporting_token'] }
 
-config_path = File.join(node[:gilmour_health][:repo_path], 'current', 'config', 'config.yaml')
+config_path = File.join(node[:gilmour_health][:repo_path], 'current', 'config',
+                        'config.yaml')
 
-template config_path  do
+template config_path do
   action :create
   backup 5
   owner user
@@ -60,26 +61,20 @@ template config_path  do
   variables params
 end
 
-env = { 'HOME' => "/home/#{user}", 'USER' => user }
-execute 'gilmour_health_bundle_update' do
-  user user
-  command 'bash -c -l bundle update'
-
-  cwd "#{node[:gilmour_health][:repo_path]}/current"
-  action :run
-  environment env
+bundle_path = File.join(node.gilmour_health.repo_path, 'shared', 'bundle')
+directory bundle_path do
+  recursive true
+  mode '0755'
+  action :create
+  owner user
 end
 
-execute 'gilmour_health_bundle_install' do
-  user user
-  command ['bash -c -l bundle install',
-           '--gemfile #{node[:gilmour_health][:repo_path]}/current/Gemfile',
-           '--path #{node[:gilmour_health][:repo_path]}/shared/bundle'
-          ].join(' ')
+cwd = File.join(node.gilmour_health.repo_path, 'current')
 
-  cwd "#{node[:gilmour_health][:repo_path]}/current"
+execute 'bundle_install' do
+  command "su #{user} -c -l \"cd #{cwd} && bundle install\""
+  environment 'BUNDLE_PATH' => bundle_path
   action :run
-  environment env
 end
 
 gem_package 'foreman' do
