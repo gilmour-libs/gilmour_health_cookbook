@@ -1,4 +1,5 @@
-service_name = "gilmour_health"
+service_name = node.gilmour_health.service
+
 user = node[:vars][:user]
 repo_path = node.gilmour_health.repo_path
 
@@ -16,19 +17,19 @@ template File.join(source_dir, "Procfile") do
     bundle_path: bundle_path,
     config_file: File.join(source_dir, "config", "config.yaml")
   })
-  notifies :run, 'execute[foreman_health_script]', :immediately
+  notifies :run, 'execute[foreman_health_script]', :delayed
 end
 
 execute "foreman_health_script" do
   action :nothing
   command command
   cwd source_dir
+  notifies :restart, "service[#{service_name}]", :delayed
 end
 
 service service_name do
+  action :nothing
   supports status: true, restart: true
-  action [:enable, :restart]
-  subscribes :restart, "execute[foreman_script]", :immediately
   restart_command "service #{service_name} restart"
   start_command "service #{service_name} start"
   status_command "service #{service_name} status"

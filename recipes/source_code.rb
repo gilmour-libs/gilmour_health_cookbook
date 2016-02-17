@@ -40,7 +40,9 @@ deploy_revision node[:gilmour_health][:repo_path] do
   symlink_before_migrate({})
   # scm_provider Chef::Provider::Git
   # install dependencies
-  notifies :restart, 'service[gilmour_health]'
+  notifies :restart, "service[#{node.gilmour_health.service}]", :delayed
+  notifies :run, 'execute[bundle_install]', :immediately
+  notifies :install, "gem_package[foreman]", :immediately
 end
 
 params = { essential_topics: node[:gilmour_health][:essential_topics],
@@ -72,11 +74,11 @@ end
 cwd = File.join(node.gilmour_health.repo_path, 'current')
 
 execute 'bundle_install' do
+  action :nothing
   command "su #{user} -c -l \"cd #{cwd} && bundle install\""
   environment 'BUNDLE_PATH' => bundle_path
-  action :run
 end
 
 gem_package 'foreman' do
-  action :install
+  action :nothing
 end
