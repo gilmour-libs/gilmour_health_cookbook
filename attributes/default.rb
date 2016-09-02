@@ -1,4 +1,4 @@
-default.gilmour_health.service = 'gilmour_health'
+default.gilmour_health.service = 'gilmour-health'
 default.gilmour_health.essential_topics = []
 
 default.gilmour_health.repo_prefix = '/opt/ds'
